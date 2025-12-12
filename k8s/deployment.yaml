@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: interview-analytics-service
+  namespace: ai-interview
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: interview-analytics-service
+  template:
+    metadata:
+      labels:
+        app: interview-analytics-service
+    spec:
+      containers:
+      - name: interview-analytics-service
+        image: gograbjob/interview-analytics-service:1.0.0
+        ports:
+        - containerPort: 8306
+        envFrom:
+        - secretRef:
+            name: ai-api-keys
